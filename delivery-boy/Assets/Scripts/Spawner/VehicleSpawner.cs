@@ -7,5 +7,6 @@ public class VehicleSpawner : MonoBehaviour
     [HideInInspector]
     public int carsPerSpawn = 3;
     [HideInInspector]
-    public float carSpeed = 2;
+    public float  minTime = 5, maxTime = 10; 
+
 }

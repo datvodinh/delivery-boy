@@ -34,9 +34,8 @@ public class RightSpawner : VehicleSpawner
                 spawnedVehicles = Instantiate(vehiclesReference[randomIndex]);
 
                 spawnedVehicles.transform.position = pos.position;
-                spawnedVehicles.GetComponent<Horizontal_vehicle>().speed = carSpeed;
 
-                yield return new WaitForSeconds(Random.Range(3, 6));
+                yield return new WaitForSeconds(Random.Range(minTime, maxTime));
             }
 
         }

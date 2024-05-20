@@ -10,6 +10,6 @@ public class CollectorVehicle : MonoBehaviour
         if (collision.CompareTag(VEHICLE))
         {
             Destroy(collision.gameObject);
-        }
+        } 
     }
 }
