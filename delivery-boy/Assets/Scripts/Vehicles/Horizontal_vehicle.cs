@@ -12,7 +12,7 @@ public class Horizontal_vehicle : MonoBehaviour
     void Awake()
     {
         myBody = GetComponent<Rigidbody2D>();
-        speed = 2;
+        speed = 0;
     }
 
     // Update is called once per frame
@@ -20,6 +20,7 @@ public class Horizontal_vehicle : MonoBehaviour
     {
          myBody.velocity = new Vector2(-speed , myBody.velocity.y);
     }
+
     private void OnTriggerEnter2D(Collider2D collision){
         Debug.Log("Detect Collision");
     }
