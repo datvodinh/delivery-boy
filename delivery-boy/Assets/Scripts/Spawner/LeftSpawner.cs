@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class RightSpawner : VehicleSpawner
+public class LeftSpawner : VehicleSpawner
 {
     [SerializeField]
     private GameObject[] vehiclesReference;
@@ -30,14 +30,16 @@ public class RightSpawner : VehicleSpawner
             for (int i = 0; i < carsPerSpawn; i++)
             {
                 randomIndex = Random.Range(0, vehiclesReference.Length);
-                
+
                 spawnedVehicles = Instantiate(vehiclesReference[randomIndex]);
 
                 spawnedVehicles.transform.position = pos.position;
 
-                spawnedVehicles.GetComponent<Horizontal_vehicle>().speed = carSpeed;
+                Vector3 new_scale = new Vector3(-1f, 1f, 1f);
+                spawnedVehicles.transform.localScale = new_scale;
 
-                spawnedVehicles.GetComponent<Horizontal_vehicle>().direction = 1;
+                spawnedVehicles.GetComponent<Horizontal_vehicle>().speed = carSpeed;
+                spawnedVehicles.GetComponent<Horizontal_vehicle>().direction = -1;
 
                 yield return new WaitForSeconds(Random.Range(minTime, maxTime));
             }

@@ -6,7 +6,7 @@ using UnityEngine;
 public class Vertical_vehicle : MonoBehaviour
 {
     [HideInInspector]
-    public float speed;
+    public float speed, direction;
 
     private Rigidbody2D myBody;
     private bool canMove = true;
@@ -14,7 +14,7 @@ public class Vertical_vehicle : MonoBehaviour
     void Awake()
     {
         myBody = GetComponent<Rigidbody2D>();
-        speed = 2;
+        //speed = 2;
     }
 
     // Update is called once per frame
@@ -23,7 +23,7 @@ public class Vertical_vehicle : MonoBehaviour
         if (canMove)
         {
 
-        myBody.velocity = new Vector2(myBody.velocity.x, speed);
+        myBody.velocity = new Vector2(myBody.velocity.x, speed * direction);
         }
         
 
@@ -61,7 +61,10 @@ public class Vertical_vehicle : MonoBehaviour
                 {
 
                     Debug.Log("Hit on the top side.");//the object need to stop
+                    
+
                     StartCoroutine(StopMoveRoutine());
+                    
                     
 
                 }
@@ -69,6 +72,7 @@ public class Vertical_vehicle : MonoBehaviour
                 {
 
                     Debug.Log("Hit on the bottom side.");
+                    
                 }
             }
 

@@ -9,11 +9,13 @@ public class Horizontal_vehicle : MonoBehaviour
 
     private Rigidbody2D myBody;
     private bool canMove = true;
+    [HideInInspector]
+    public float direction;
     // Start is called before the first frame update
     void Awake()
     {
         myBody = GetComponent<Rigidbody2D>();
-        speed = 2;
+        //speed = 2;
     }
 
     // Update is called once per frame
@@ -21,7 +23,7 @@ public class Horizontal_vehicle : MonoBehaviour
     {   if (canMove)
         {
 
-         myBody.velocity = new Vector2(-speed , myBody.velocity.y);
+         myBody.velocity = new Vector2(-speed*direction , myBody.velocity.y);
         }
 
     }
@@ -42,7 +44,7 @@ public class Horizontal_vehicle : MonoBehaviour
                 {
 
                     Debug.Log("Hit on the right side.");//the other need to stop
-
+                    
 
                 }
 
@@ -50,7 +52,9 @@ public class Horizontal_vehicle : MonoBehaviour
                 {
 
                     Debug.Log("Hit on the left side.");
+                    
                     StartCoroutine(StopMoveRoutine());
+                    
                 }
             }
             else
