@@ -9,7 +9,7 @@ public class Player : MonoBehaviour
     private float targetRotation = 90f; // Target rotation in degrees
 
     private bool isRotating = false;
-    private Vector3 velocity = new Vector3(0, 0, 3);
+    private Vector3 velocity = new Vector3(0, 1, 0);
     // Start is called before the first frame update
     private Rigidbody rb;
 
@@ -22,11 +22,11 @@ public class Player : MonoBehaviour
     void Update()
     {
         transform.Translate(velocity * Time.deltaTime);
-        if (Input.GetKeyDown(KeyCode.D) && !isRotating)
+        if (Input.GetKeyDown(KeyCode.A) && !isRotating)
         {
             StartCoroutine(RotateRight());
         }
-        if (Input.GetKeyDown(KeyCode.A) && !isRotating)
+        if (Input.GetKeyDown(KeyCode.D) && !isRotating)
         {
             StartCoroutine(RotateLeft());
         }
@@ -37,7 +37,7 @@ public class Player : MonoBehaviour
         isRotating = true;
 
         Quaternion startRotation = transform.rotation;
-        Quaternion targetQuaternion = transform.rotation * Quaternion.Euler(0, targetRotation, 0);
+        Quaternion targetQuaternion = transform.rotation * Quaternion.Euler(0,  0, targetRotation);
 
         float t = 0f;
 
@@ -58,7 +58,7 @@ public class Player : MonoBehaviour
         
 
         Quaternion startRotation = transform.rotation;
-        Quaternion targetQuaternion = transform.rotation * Quaternion.Euler(0, -targetRotation, 0);
+        Quaternion targetQuaternion = transform.rotation * Quaternion.Euler(0, 0, -targetRotation);
 
         float t = 0f;
 
