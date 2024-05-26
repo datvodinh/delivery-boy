@@ -21,12 +21,14 @@ public class Player : MonoBehaviour
 
     void Update()
     {
-        transform.Translate(velocity * Time.deltaTime);
-        if (Input.GetKeyDown(KeyCode.A) && !isRotating)
+        if (Input.GetKey(KeyCode.UpArrow) && !isRotating)
+           transform.Translate(velocity * Time.deltaTime);
+
+        if (Input.GetKey(KeyCode.LeftArrow) && !isRotating)
         {
             StartCoroutine(RotateRight());
         }
-        if (Input.GetKeyDown(KeyCode.D) && !isRotating)
+        if (Input.GetKey(KeyCode.RightArrow) && !isRotating)
         {
             StartCoroutine(RotateLeft());
         }
