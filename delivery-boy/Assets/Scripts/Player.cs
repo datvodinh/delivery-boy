@@ -8,14 +8,17 @@ public class Player : MonoBehaviour
     private float rotateSpeed = 360f; // Degrees per second
     private float targetRotation = 90f; // Target rotation in degrees
 
+    private bool canMove = true;
+    [HideInInspector]
+    
     private bool isRotating = false;
     private Vector3 velocity = new Vector3(0, 1, 0);
     // Start is called before the first frame update
-    private Rigidbody rb;
+    private Rigidbody2D rb;
 
     void Start()
     {
-        rb = GetComponent<Rigidbody>();
+        rb = GetComponent<Rigidbody2D>();
         rb.velocity = velocity;
     }
 
@@ -73,6 +76,66 @@ public class Player : MonoBehaviour
 
         transform.rotation = targetQuaternion;
         isRotating = false;
+    }
+
+    
+     private void OnTriggerEnter2D(Collider2D other)
+    {
+        if (other.CompareTag("Vehicle"))
+        {
+            //Debug.Log("Detect vehicle Collision");
+            //StartCoroutine(StopMoveRoutine());
+            // Get the relative position of the other object compared to this object
+            Vector2 hitPosition = transform.InverseTransformPoint(other.transform.position);
+
+            // Determine which side is hit
+            if (Mathf.Abs(hitPosition.x) > Mathf.Abs(hitPosition.y))
+            {
+                if (hitPosition.x > 0)
+                {
+
+                    Debug.Log("Hit on the right side.");//the other need to stop
+                    
+
+                }
+
+                else
+                {
+
+                    Debug.Log("Hit on the left side.");
+                    
+                    StartCoroutine(StopMoveRoutine());
+                    
+                }
+            }
+            else
+            {
+                if (hitPosition.y > 0)
+                {
+
+                    Debug.Log("Hit on the top side.");//the object need to stop
+
+
+                }
+                else
+                {
+
+                    Debug.Log("Hit on the bottom side.");
+                }
+            }
+
+        }
+
+    }
+    IEnumerator StopMoveRoutine()
+    {
+        Vector2 org = rb.velocity;
+        rb.velocity = Vector2.zero;
+        canMove = false;
+        yield return new WaitForSeconds(2);
+        rb.velocity = org;
+        canMove = true; 
+
     }
 
 }
