@@ -4,138 +4,70 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
+    // Speed of the player movement
+    public float speed = 0.01f;
     private Animator animator;
-    private float rotateSpeed = 360f; // Degrees per second
-    private float targetRotation = 90f; // Target rotation in degrees
-
-    private bool canMove = true;
-    [HideInInspector]
-    
-    private bool isRotating = false;
-    private Vector3 velocity = new Vector3(0, 1, 0);
-    // Start is called before the first frame update
-    private Rigidbody2D rb;
+    private bool facingRight = true;
 
     void Start()
     {
-        rb = GetComponent<Rigidbody2D>();
-        rb.velocity = velocity;
+        animator = GetComponent<Animator>();
     }
 
+    // Update is called once per frame
     void Update()
     {
-        if (Input.GetKey(KeyCode.UpArrow) && !isRotating)
-           transform.Translate(velocity * Time.deltaTime);
+        // Initialize movement variables
+        float moveHorizontal = 0;
+        float moveVertical = 0;
 
-        if (Input.GetKey(KeyCode.LeftArrow) && !isRotating)
+        // Check for "A S W D" and arrow key inputs
+        if (Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.LeftArrow))
         {
-            StartCoroutine(RotateRight());
-        }
-        if (Input.GetKey(KeyCode.RightArrow) && !isRotating)
-        {
-            StartCoroutine(RotateLeft());
-        }
-    }
-
-    IEnumerator RotateRight()
-    {
-        isRotating = true;
-
-        Quaternion startRotation = transform.rotation;
-        Quaternion targetQuaternion = transform.rotation * Quaternion.Euler(0,  0, targetRotation);
-
-        float t = 0f;
-
-        while (t < 1f)
-        {
-            t += Time.deltaTime * (rotateSpeed / 90f);
-            transform.rotation = Quaternion.Slerp(startRotation, targetQuaternion, t);
-            yield return null;
-        }
-
-        transform.rotation = targetQuaternion;
-        isRotating = false;
-    }
-
-    IEnumerator RotateLeft()
-    {
-        isRotating = true;
-        
-
-        Quaternion startRotation = transform.rotation;
-        Quaternion targetQuaternion = transform.rotation * Quaternion.Euler(0, 0, -targetRotation);
-
-        float t = 0f;
-
-        while (t < 1f)
-        {
-            t += Time.deltaTime * (rotateSpeed / 90f);
-            transform.rotation = Quaternion.Slerp(startRotation, targetQuaternion, t);
-            yield return null;
-        }
-
-        transform.rotation = targetQuaternion;
-        isRotating = false;
-    }
-
-    
-     private void OnTriggerEnter2D(Collider2D other)
-    {
-        if (other.CompareTag("Vehicle"))
-        {
-            //Debug.Log("Detect vehicle Collision");
-            //StartCoroutine(StopMoveRoutine());
-            // Get the relative position of the other object compared to this object
-            Vector2 hitPosition = transform.InverseTransformPoint(other.transform.position);
-
-            // Determine which side is hit
-            if (Mathf.Abs(hitPosition.x) > Mathf.Abs(hitPosition.y))
+            moveHorizontal = -speed;
+            animator.SetTrigger("run");
+            if (facingRight)
             {
-                if (hitPosition.x > 0)
-                {
-
-                    Debug.Log("Hit on the right side.");//the other need to stop
-                    
-
-                }
-
-                else
-                {
-
-                    Debug.Log("Hit on the left side.");
-                    
-                    StartCoroutine(StopMoveRoutine());
-                    
-                }
+                Flip();
             }
-            else
+        }
+        else if (Input.GetKey(KeyCode.D) || Input.GetKey(KeyCode.RightArrow))
+        {
+            moveHorizontal = speed;
+            animator.SetTrigger("run");
+            if (!facingRight)
             {
-                if (hitPosition.y > 0)
-                {
-
-                    Debug.Log("Hit on the top side.");//the object need to stop
-
-
-                }
-                else
-                {
-
-                    Debug.Log("Hit on the bottom side.");
-                }
+                Flip();
             }
-
         }
 
+        if (Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.UpArrow))
+        {
+            moveVertical = speed;
+            animator.SetTrigger("run");
+        }
+        else if (Input.GetKey(KeyCode.S) || Input.GetKey(KeyCode.DownArrow))
+        {
+            moveVertical = -speed;
+            animator.SetTrigger("run");
+        }
+
+        // Create a Vector3 based on the input
+        Vector3 movement = new Vector3(moveHorizontal, moveVertical, 0.0f);
+
+        // Move the player
+        transform.Translate(movement * Time.deltaTime, Space.World);
     }
-    IEnumerator StopMoveRoutine()
+
+    // Function to flip the character
+    void Flip()
     {
-        Vector2 org = rb.velocity;
-        rb.velocity = Vector2.zero;
-        canMove = false;
-        yield return new WaitForSeconds(2);
-        rb.velocity = org;
-        canMove = true; 
+        // Switch the way the player is labeled as facing
+        facingRight = !facingRight;
 
+        // Multiply the player's x local scale by -1 to flip the character
+        Vector3 theScale = transform.localScale;
+        theScale.x *= -1;
+        transform.localScale = theScale;
     }
-
 }
