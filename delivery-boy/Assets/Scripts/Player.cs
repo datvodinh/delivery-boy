@@ -94,7 +94,7 @@ public class Player : MonoBehaviour
         {
             Debug.Log("Player hit by vehicle");
 
-            transform.position = new Vector3(0.0f, 0.0f, -0.1f);
+            transform.position = new Vector3(0.0f, 0.0f, -0.06078517f);
             animator.ResetTrigger("run");
 
         }
