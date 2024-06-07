@@ -32,7 +32,7 @@ public class Vertical_vehicle : MonoBehaviour
     
     private void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.CompareTag("Vehicle"))
+        if (other.CompareTag("Vehicle") || other.CompareTag("Player"))
         {
             //Debug.Log("Detect vehicle Collision");
             //StartCoroutine(StopMoveRoutine());
