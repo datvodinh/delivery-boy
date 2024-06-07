@@ -189,8 +189,8 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4279900701
-  m_fontColor: {r: 0.11320752, g: 0.10092557, b: 0.10092557, a: 1}
+    rgba: 4294967295
+  m_fontColor: {r: 1, g: 1, b: 1, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -1059,6 +1059,7 @@ GameObject:
   - component: {fileID: 1269159092}
   - component: {fileID: 1269159091}
   - component: {fileID: 1269159090}
+  - component: {fileID: 1269159093}
   m_Layer: 5
   m_Name: Next Level
   m_TagString: Untagged
@@ -1130,9 +1131,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: Restart, Assembly-CSharp
-        m_MethodName: ResetTheGame
+      - m_Target: {fileID: 1269159093}
+        m_TargetAssemblyTypeName: NextLevel, Assembly-CSharp
+        m_MethodName: Check
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -1180,6 +1181,18 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1269159088}
   m_CullTransparentMesh: 1
+--- !u!114 &1269159093
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1269159088}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b4872daaf0b17434daae939b1d59250c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1641484760
 GameObject:
   m_ObjectHideFlags: 0
@@ -1192,6 +1205,7 @@ GameObject:
   - component: {fileID: 1641484764}
   - component: {fileID: 1641484763}
   - component: {fileID: 1641484762}
+  - component: {fileID: 1641484765}
   m_Layer: 5
   m_Name: QuitBtn
   m_TagString: Untagged
@@ -1263,9 +1277,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: gameQuitBtn, Assembly-CSharp
-        m_MethodName: saveAndQuit
+      - m_Target: {fileID: 1641484765}
+        m_TargetAssemblyTypeName: TaskExit, Assembly-CSharp
+        m_MethodName: exitTask
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -1313,6 +1327,18 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1641484760}
   m_CullTransparentMesh: 1
+--- !u!114 &1641484765
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1641484760}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 08f876b28cd2f4cfeaf0a2625279fce2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
