@@ -7,6 +7,7 @@ public class Vertical_vehicle : MonoBehaviour
 {
     [HideInInspector]
     public float speed, direction;
+    public bool isStopped;
 
     private Rigidbody2D myBody;
     private bool canMove = true;
@@ -78,7 +79,43 @@ public class Vertical_vehicle : MonoBehaviour
 
         }
 
+
+        if (other.CompareTag("TrafficLight"))
+        {
+            Debug.Log("OnCollisionEnter2D called !!!!!!!!!!!!!!!!!!!!!!!!");
+            Animator trafficLightAnimator = other.GetComponent<Animator>();
+            if (trafficLightAnimator != null)
+            {
+                AnimatorStateInfo stateInfo = trafficLightAnimator.GetCurrentAnimatorStateInfo(0);
+                if (stateInfo.IsName("red") || stateInfo.IsName("green_to_red"))
+                {
+                    StopCar();
+                    Debug.Log("STOP BY TRAFFIC LIGHT!!!");
+                    StartCoroutine(CheckTrafficLightState(trafficLightAnimator));
+                }
+            }
+        }
+
     }
+ // For traffic light mechanism
+
+
+    void StopCar()
+    {
+        Vector2 org = myBody.velocity;
+        myBody.velocity = Vector2.zero;
+        isStopped = true;
+    }
+
+    void MoveCar()
+    {
+        // Resume car movement; for example, set a specific velocity or add force
+        Vector2 org = myBody.velocity;
+        myBody.velocity = org;
+        isStopped = false;
+    }
+
+
     IEnumerator StopMoveRoutine()
     {
         Vector2 org = myBody.velocity;
@@ -90,5 +127,23 @@ public class Vertical_vehicle : MonoBehaviour
 
     }
 
+
+    IEnumerator CheckTrafficLightState(Animator trafficLightAnimator)
+    {
+        while (isStopped)
+        {
+            yield return new WaitForSeconds(0.5f);
+            AnimatorStateInfo stateInfo = trafficLightAnimator.GetCurrentAnimatorStateInfo(0);
+            Debug.Log("Checking TrafficLight state: " + stateInfo.fullPathHash);
+
+            if (stateInfo.IsName("green"))
+            {
+                MoveCar();
+                Debug.Log("TrafficLight turned green, car moves.");
+            }
+        }
+    }
+
 }
+
 
