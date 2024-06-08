@@ -34,7 +34,7 @@ public class Horizontal_vehicle : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.CompareTag("Player"))
+        if (other.CompareTag("Player")|| other.CompareTag("Vehicle"))
         {
             //Debug.Log("Detect vehicle Collision");
             //StartCoroutine(StopMoveRoutine());
