@@ -8,9 +8,9 @@ public class Player : MonoBehaviour
     public float speed = 0.01f;
     private Animator animator;
     private bool facingRight = true;
-    private Vector3 velocity = new Vector3(0, 1, 0);
+    private Vector3 velocity = new Vector3(0, 0, 0);
     // Start is called before the first frame update
-    private Rigidbody2D body;
+    private Rigidbody body;
     private GameObject player;
 
     // Boundaries of the map
@@ -19,7 +19,7 @@ public class Player : MonoBehaviour
     void Start()
     {
         animator = GetComponent<Animator>();
-        body = GetComponent<Rigidbody2D>();
+        body = GetComponent<Rigidbody>();
         body.velocity = velocity;
     }
 
@@ -106,6 +106,27 @@ public class Player : MonoBehaviour
 
             transform.position = new Vector3(0.0f, 0.0f, -0.0f);
             animator.ResetTrigger("run");
+        }
+    }
+
+    public class CollisionHandler : MonoBehaviour
+    {
+        void OnCollisionEnter(Collision collision)
+        {
+            Debug.Log("Collision detected with: " + collision.gameObject.name);
+            // Handle collision response here
+        }
+
+        void OnCollisionStay(Collision collision)
+        {
+            Debug.Log("Still colliding with: " + collision.gameObject.name);
+            // Handle ongoing collision response here
+        }
+
+        void OnCollisionExit(Collision collision)
+        {
+            Debug.Log("Collision ended with: " + collision.gameObject.name);
+            // Handle end of collision response here
         }
     }
 }

@@ -24,15 +24,15 @@ public class Vertical_vehicle : MonoBehaviour
         if (canMove)
         {
 
-        myBody.velocity = new Vector2(myBody.velocity.x, speed * direction);
+            myBody.velocity = new Vector2(myBody.velocity.x, speed * direction);
         }
-        
+
 
     }
-    
+
     private void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.CompareTag("Vehicle") || other.CompareTag("Player"))
+        if (other.CompareTag("Player"))
         {
             //Debug.Log("Detect vehicle Collision");
             //StartCoroutine(StopMoveRoutine());
@@ -46,8 +46,8 @@ public class Vertical_vehicle : MonoBehaviour
                 {
 
                     Debug.Log("Hit on the right side.");//the other need to stop
-                    
-                    
+
+
                 }
 
                 else
@@ -62,18 +62,18 @@ public class Vertical_vehicle : MonoBehaviour
                 {
 
                     Debug.Log("Hit on the top side.");//the object need to stop
-                    
+
 
                     StartCoroutine(StopMoveRoutine());
-                    
-                    
+
+
 
                 }
                 else
                 {
 
                     Debug.Log("Hit on the bottom side.");
-                    
+
                 }
             }
 
@@ -97,7 +97,7 @@ public class Vertical_vehicle : MonoBehaviour
         }
 
     }
- // For traffic light mechanism
+    // For traffic light mechanism
 
 
     void StopCar()

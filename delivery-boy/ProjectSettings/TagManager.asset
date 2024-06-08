@@ -6,6 +6,7 @@ TagManager:
   tags:
   - TrafficLight
   - Vehicle
+  - House
   layers:
   - Default
   - TransparentFX
