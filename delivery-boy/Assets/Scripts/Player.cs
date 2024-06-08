@@ -17,6 +17,7 @@ public class Player : MonoBehaviour
     public int currentLives;
     [SerializeField]
     public bool getPack;
+    public GameObject pointer;
 
     // Boundaries of the map
     public float minX, maxX, minY, maxY;
@@ -35,7 +36,8 @@ public class Player : MonoBehaviour
         // Initialize movement variables
         float moveHorizontal = 0;
         float moveVertical = 0;
-
+        Vector3 offset = new Vector3(0,1,0);
+        pointer.transform.position = transform.position + offset;
         bool isMoving = false;
 
         // Check for "A S W D" and arrow key inputs
@@ -43,6 +45,7 @@ public class Player : MonoBehaviour
         {
             moveHorizontal = -speed;
             isMoving = true;
+            
             if (facingRight)
             {
                 Flip();
