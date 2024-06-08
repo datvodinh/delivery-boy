@@ -13,6 +13,9 @@ public class Player : MonoBehaviour
     private Rigidbody2D body;
     private GameObject player;
 
+    // Boundaries of the map
+    public float minX, maxX, minY, maxY;
+
     void Start()
     {
         animator = GetComponent<Animator>();
@@ -75,6 +78,12 @@ public class Player : MonoBehaviour
 
         // Move the player
         transform.Translate(movement * Time.deltaTime, Space.World);
+
+        // Clamp the player's position to stay within the map boundaries
+        Vector3 clampedPosition = transform.position;
+        clampedPosition.x = Mathf.Clamp(clampedPosition.x, minX, maxX);
+        clampedPosition.y = Mathf.Clamp(clampedPosition.y, minY, maxY);
+        transform.position = clampedPosition;
     }
 
     // Function to flip the character
@@ -88,16 +97,15 @@ public class Player : MonoBehaviour
         theScale.x *= -1;
         transform.localScale = theScale;
     }
+
     private void OnTriggerEnter2D(Collider2D other)
     {
         if (other.CompareTag("Vehicle"))
         {
             Debug.Log("Player hit by vehicle");
 
-            transform.position = new Vector3(0.0f, 0.0f, -0.06078517f);
+            transform.position = new Vector3(0.0f, 0.0f, -0.0f);
             animator.ResetTrigger("run");
-
         }
-
     }
 }
