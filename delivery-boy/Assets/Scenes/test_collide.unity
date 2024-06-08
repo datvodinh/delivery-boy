@@ -127,11 +127,6 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 8620054177002683931, guid: ae4d46b5d9ff64229b2f7f90e2869e8c, type: 3}
   m_PrefabInstance: {fileID: 1202380260}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &198484581 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 8092952929460860846, guid: f94c3bbae3f294f959f22efd71d2fac3, type: 3}
-  m_PrefabInstance: {fileID: 1241089046}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &360924811
 GameObject:
   m_ObjectHideFlags: 0
@@ -258,7 +253,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 1.2, y: -0.9}
+  m_AnchoredPosition: {x: 0.4, y: -12.2}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!212 &425680836
@@ -325,7 +320,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 53f6002e129854999abf37e54ceb7df4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Target: {fileID: 198484581}
+  Target: {fileID: 0}
   character: {fileID: 193061460}
 --- !u!1001 &1202380260
 PrefabInstance:

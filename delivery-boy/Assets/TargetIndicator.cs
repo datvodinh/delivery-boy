@@ -7,7 +7,7 @@ public class TargetIndicator : MonoBehaviour
     [SerializeField]
     public GameObject Target=null;
     [SerializeField]
-    public GameObject character;
+    public GameObject character=null;
     void Update(){
         if(character == null){
             transform.position = character.transform.position;

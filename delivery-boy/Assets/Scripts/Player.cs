@@ -16,12 +16,15 @@ public class Player : MonoBehaviour
     [HideInInspector]
     public int currentLives;
     [SerializeField]
-    public bool getPack;
+    public bool getPack=false;
+    [SerializeField]
     public GameObject pointer;
 
     // Boundaries of the map
     public float minX, maxX, minY, maxY;
+    public GameObject shop,goal;
 
+    private int number_of_packet = 1;
     void Start()
     {
         animator = GetComponent<Animator>();
@@ -93,6 +96,8 @@ public class Player : MonoBehaviour
         clampedPosition.x = Mathf.Clamp(clampedPosition.x, minX, maxX);
         clampedPosition.y = Mathf.Clamp(clampedPosition.y, minY, maxY);
         transform.position = clampedPosition;
+
+        
     }
 
     // Function to flip the character
@@ -120,13 +125,15 @@ public class Player : MonoBehaviour
     }
     private void OnCollisionEnter(Collision other)
     {
-        if (other.gameObject.CompareTag("Shop")){
+        if (other.gameObject.CompareTag("Shop") && !getPack){
             getPack = true;
-            Debug.Log(getPack);
+            pointer.GetComponent<TargetIndicator>().Target= goal;
         }
-        if (other.gameObject.CompareTag("Goal")){
+        if (other.gameObject.CompareTag("Goal") && getPack){
             getPack = false;
-            Debug.Log(getPack);
+            pointer.GetComponent<TargetIndicator>().Target= shop;
+            number_of_packet -= 1;
+            Debug.Log($"number_of_packet: {number_of_packet}");
         }
     }
 
@@ -153,6 +160,14 @@ public class Player : MonoBehaviour
         // Change the tags of the selected houses
         houses[firstIndex].tag = "Shop";
         houses[secondIndex].tag = "Goal";
+        shop = houses[firstIndex];
+        goal = houses[secondIndex];
+        if (! getPack)
+        {
+        Debug.Log("now, shop");
+        pointer.GetComponent<TargetIndicator>().Target= shop;
+        }
+
 
         Debug.Log($"House {houses[firstIndex].name} is now a Shop");
         Debug.Log($"House {houses[secondIndex].name} is now a Goal");
