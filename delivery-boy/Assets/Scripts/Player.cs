@@ -15,6 +15,8 @@ public class Player : MonoBehaviour
     public int maxLives = 3;
     [HideInInspector]
     public int currentLives;
+    [SerializeField]
+    public bool getPack;
 
     // Boundaries of the map
     public float minX, maxX, minY, maxY;
@@ -110,6 +112,18 @@ public class Player : MonoBehaviour
 
             transform.position = new Vector3(0.0f, 0.0f, -0.0f);
             animator.ResetTrigger("run");
+        }
+        
+    }
+    private void OnCollisionEnter(Collision other)
+    {
+        if (other.gameObject.CompareTag("Shop")){
+            getPack = true;
+            Debug.Log(getPack);
+        }
+        if (other.gameObject.CompareTag("Goal")){
+            getPack = false;
+            Debug.Log(getPack);
         }
     }
 
