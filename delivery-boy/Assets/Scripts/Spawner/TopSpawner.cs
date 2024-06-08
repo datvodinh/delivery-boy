@@ -33,8 +33,7 @@ public class TopSpawner : VehicleSpawner
                 spawnedVehicles = Instantiate(vehiclesReference[randomIndex]);
 
                 spawnedVehicles.transform.position = pos.position;
-                Vector3 new_scale = new Vector3(1f, -1f, 1f);
-                spawnedVehicles.transform.localScale = new_scale;
+                
                 spawnedVehicles.GetComponent<Vertical_vehicle>().speed = carSpeed;
                 spawnedVehicles.GetComponent<Vertical_vehicle>().direction = -1;
                 yield return new WaitForSeconds(Random.Range(minTime , maxTime));
