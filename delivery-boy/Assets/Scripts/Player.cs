@@ -12,6 +12,9 @@ public class Player : MonoBehaviour
     // Start is called before the first frame update
     private Rigidbody body;
     private GameObject player;
+    public int maxLives = 3;
+    [HideInInspector]
+    public int currentLives;
 
     // Boundaries of the map
     public float minX, maxX, minY, maxY;
@@ -21,6 +24,7 @@ public class Player : MonoBehaviour
         animator = GetComponent<Animator>();
         body = GetComponent<Rigidbody>();
         body.velocity = velocity;
+        ChangeHouseTags();
     }
 
     // Update is called once per frame
@@ -109,24 +113,47 @@ public class Player : MonoBehaviour
         }
     }
 
-    public class CollisionHandler : MonoBehaviour
+    public void ChangeHouseTags()
     {
-        void OnCollisionEnter(Collision collision)
+        // Find all GameObjects with the tag "House"
+        GameObject[] houses = GameObject.FindGameObjectsWithTag("House");
+
+        // Ensure there are at least two houses
+        if (houses.Length < 2)
         {
-            Debug.Log("Collision detected with: " + collision.gameObject.name);
-            // Handle collision response here
+            Debug.LogError("Not enough houses to assign tags.");
+            return;
         }
 
-        void OnCollisionStay(Collision collision)
+        // Get two unique random indices
+        int firstIndex = Random.Range(0, houses.Length);
+        int secondIndex = firstIndex;
+        while (secondIndex == firstIndex)
         {
-            Debug.Log("Still colliding with: " + collision.gameObject.name);
-            // Handle ongoing collision response here
+            secondIndex = Random.Range(0, houses.Length);
         }
 
-        void OnCollisionExit(Collision collision)
+        // Change the tags of the selected houses
+        houses[firstIndex].tag = "Shop";
+        houses[secondIndex].tag = "Goal";
+
+        Debug.Log($"House {houses[firstIndex].name} is now a Shop");
+        Debug.Log($"House {houses[secondIndex].name} is now a Goal");
+    }
+
+    private void InitPointer()
+    {
+        // Find the GameObject with the tag "Shop"
+        GameObject shop = GameObject.FindGameObjectWithTag("Shop");
+        if (shop == null)
         {
-            Debug.Log("Collision ended with: " + collision.gameObject.name);
-            // Handle end of collision response here
+            Debug.LogError("No GameObject with tag 'Shop' found.");
+            return;
         }
+
+        // Instantiate the pointer
+        GameObject pointerPrefab = Resources.Load<GameObject>("Pointer");
+        GameObject pointerInstance = Instantiate(pointerPrefab, Vector3.zero, Quaternion.identity);
+        pointerInstance.tag = "ShopPointer";
     }
 }
