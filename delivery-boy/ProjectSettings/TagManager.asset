@@ -6,6 +6,11 @@ TagManager:
   tags:
   - TrafficLight
   - Vehicle
+  - House
+  - Shop
+  - Goal
+  - ShopPointer
+  - GoalPointer
   layers:
   - Default
   - TransparentFX

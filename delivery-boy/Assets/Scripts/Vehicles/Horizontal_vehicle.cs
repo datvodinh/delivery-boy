@@ -23,17 +23,18 @@ public class Horizontal_vehicle : MonoBehaviour
 
     // Update is called once per frame
     void Update()
-    {   if (canMove)
+    {
+        if (canMove)
         {
 
-         myBody.velocity = new Vector2(-speed*direction , myBody.velocity.y);
+            myBody.velocity = new Vector2(-speed * direction, myBody.velocity.y);
         }
 
     }
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.CompareTag("Vehicle") || other.CompareTag("Player"))
+        if (other.CompareTag("Player"))
         {
             //Debug.Log("Detect vehicle Collision");
             //StartCoroutine(StopMoveRoutine());
@@ -47,7 +48,7 @@ public class Horizontal_vehicle : MonoBehaviour
                 {
 
                     Debug.Log("Hit on the right side.");//the other need to stop
-                    
+
 
                 }
 
@@ -55,9 +56,9 @@ public class Horizontal_vehicle : MonoBehaviour
                 {
 
                     Debug.Log("Hit on the left side.");
-                    
+
                     StartCoroutine(StopMoveRoutine());
-                    
+
                 }
             }
             else
@@ -96,7 +97,7 @@ public class Horizontal_vehicle : MonoBehaviour
         }
 
     }
- // For traffic light mechanism
+    // For traffic light mechanism
 
 
     void StopCar()

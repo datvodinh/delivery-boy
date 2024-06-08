@@ -8,10 +8,13 @@ public class Player : MonoBehaviour
     public float speed = 0.01f;
     private Animator animator;
     private bool facingRight = true;
-    private Vector3 velocity = new Vector3(0, 1, 0);
+    private Vector3 velocity = new Vector3(0, 0, 0);
     // Start is called before the first frame update
-    private Rigidbody2D body;
+    private Rigidbody body;
     private GameObject player;
+    public int maxLives = 3;
+    [HideInInspector]
+    public int currentLives;
 
     // Boundaries of the map
     public float minX, maxX, minY, maxY;
@@ -19,8 +22,9 @@ public class Player : MonoBehaviour
     void Start()
     {
         animator = GetComponent<Animator>();
-        body = GetComponent<Rigidbody2D>();
+        body = GetComponent<Rigidbody>();
         body.velocity = velocity;
+        ChangeHouseTags();
     }
 
     // Update is called once per frame
@@ -107,5 +111,49 @@ public class Player : MonoBehaviour
             transform.position = new Vector3(0.0f, 0.0f, -0.0f);
             animator.ResetTrigger("run");
         }
+    }
+
+    public void ChangeHouseTags()
+    {
+        // Find all GameObjects with the tag "House"
+        GameObject[] houses = GameObject.FindGameObjectsWithTag("House");
+
+        // Ensure there are at least two houses
+        if (houses.Length < 2)
+        {
+            Debug.LogError("Not enough houses to assign tags.");
+            return;
+        }
+
+        // Get two unique random indices
+        int firstIndex = Random.Range(0, houses.Length);
+        int secondIndex = firstIndex;
+        while (secondIndex == firstIndex)
+        {
+            secondIndex = Random.Range(0, houses.Length);
+        }
+
+        // Change the tags of the selected houses
+        houses[firstIndex].tag = "Shop";
+        houses[secondIndex].tag = "Goal";
+
+        Debug.Log($"House {houses[firstIndex].name} is now a Shop");
+        Debug.Log($"House {houses[secondIndex].name} is now a Goal");
+    }
+
+    private void InitPointer()
+    {
+        // Find the GameObject with the tag "Shop"
+        GameObject shop = GameObject.FindGameObjectWithTag("Shop");
+        if (shop == null)
+        {
+            Debug.LogError("No GameObject with tag 'Shop' found.");
+            return;
+        }
+
+        // Instantiate the pointer
+        GameObject pointerPrefab = Resources.Load<GameObject>("Pointer");
+        GameObject pointerInstance = Instantiate(pointerPrefab, Vector3.zero, Quaternion.identity);
+        pointerInstance.tag = "ShopPointer";
     }
 }
