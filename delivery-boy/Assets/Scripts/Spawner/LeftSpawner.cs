@@ -35,8 +35,8 @@ public class LeftSpawner : VehicleSpawner
 
                 spawnedVehicles.transform.position = pos.position;
 
-                Vector3 new_scale = new Vector3(-1f, 1f, 1f);
-                spawnedVehicles.transform.localScale = new_scale;
+                Transform my_transform = spawnedVehicles.transform;
+                my_transform.localScale = new Vector3(-my_transform.localScale.x,my_transform.localScale.y,my_transform.localScale.z);
 
                 spawnedVehicles.GetComponent<Horizontal_vehicle>().speed = carSpeed;
                 spawnedVehicles.GetComponent<Horizontal_vehicle>().direction = -1;
