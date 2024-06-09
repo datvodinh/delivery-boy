@@ -58,6 +58,8 @@ MonoBehaviour:
   currentLives: 0
   getPack: 0
   pointer: {fileID: 8442484763773102952, guid: c5f2fac1089f842a0b1afed6e0a407b3, type: 3}
+  buildingPointer: {fileID: 0}
+  pressFtext: {fileID: 0}
   minX: -50
   maxX: 20
   minY: -34
