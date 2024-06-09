@@ -16,7 +16,7 @@ public class Player : MonoBehaviour
     private GameObject player;
     public int maxLives = 3;
     [HideInInspector]
-    public int currentLives;
+    public int currentLives = 3;
     [SerializeField]
     public bool getPack = false;
     [SerializeField]
@@ -167,6 +167,13 @@ public class Player : MonoBehaviour
 
             transform.position = new Vector3(-7.0f, -10.0f, -0.0f);
             animator.ResetTrigger("run");
+            currentLives -= 1;
+            GameObject[] hearts = GameObject.FindGameObjectsWithTag("Heart");
+            Destroy(hearts[0]);
+            if (currentLives == 0)
+            {
+                Debug.Log("Game Over");
+            }
         }
 
     }
