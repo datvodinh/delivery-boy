@@ -3,15 +3,17 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class MainMenu : MonoBehaviour
+public class MenuManager : MonoBehaviour
 {
-    public void PlayGame()
+
+    public int gameStartScene;
+    public void StartGame()
     {
-        SceneManager.LoadSceneAsync("draft");
+        SceneManager.LoadSceneAsync("main");
     }
 
     public void QuitGame()
     {
         Application.Quit();
-    }
+    }    
 }
