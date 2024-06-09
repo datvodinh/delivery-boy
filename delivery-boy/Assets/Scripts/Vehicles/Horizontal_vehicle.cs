@@ -7,7 +7,7 @@ public class Horizontal_vehicle : MonoBehaviour
     [HideInInspector]
     public float speed;
 
-    private Rigidbody2D myBody;
+    private Rigidbody myBody;
     private bool canMove = true;
     [HideInInspector]
     public float direction;
@@ -17,7 +17,7 @@ public class Horizontal_vehicle : MonoBehaviour
     public bool isStopped;
     void Awake()
     {
-        myBody = GetComponent<Rigidbody2D>();
+        myBody = GetComponent<Rigidbody>();
         //speed = 2;
     }
 
@@ -32,7 +32,7 @@ public class Horizontal_vehicle : MonoBehaviour
 
     }
 
-    private void OnTriggerEnter2D(Collider2D other)
+    private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Player")|| other.CompareTag("Vehicle"))
         {
