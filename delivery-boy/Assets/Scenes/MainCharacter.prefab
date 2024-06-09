@@ -9,9 +9,10 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1899311936524197278}
+  - component: {fileID: 8865549009115231883}
   m_Layer: 0
   m_Name: MainCharacter
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -33,6 +34,27 @@ Transform:
   - {fileID: 7374092611982235556}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!65 &8865549009115231883
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8487910638353497652}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 0.83165026, y: 1.1515148, z: 1}
+  m_Center: {x: -0.3872044, y: 0.42929173, z: 0}
 --- !u!1001 &4096311583298020612
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -45,6 +67,18 @@ PrefabInstance:
       propertyPath: character
       value: 
       objectReference: {fileID: 1867700057976499561}
+    - target: {fileID: 755198005359617288, guid: c5f2fac1089f842a0b1afed6e0a407b3, type: 3}
+      propertyPath: m_Color.b
+      value: 0.40428087
+      objectReference: {fileID: 0}
+    - target: {fileID: 755198005359617288, guid: c5f2fac1089f842a0b1afed6e0a407b3, type: 3}
+      propertyPath: m_Color.g
+      value: 0.40428087
+      objectReference: {fileID: 0}
+    - target: {fileID: 755198005359617288, guid: c5f2fac1089f842a0b1afed6e0a407b3, type: 3}
+      propertyPath: m_Color.r
+      value: 0.745283
+      objectReference: {fileID: 0}
     - target: {fileID: 6813681836913554080, guid: c5f2fac1089f842a0b1afed6e0a407b3, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -79,11 +113,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6813681836913554080, guid: c5f2fac1089f842a0b1afed6e0a407b3, type: 3}
       propertyPath: m_LocalScale.x
-      value: 2
+      value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 6813681836913554080, guid: c5f2fac1089f842a0b1afed6e0a407b3, type: 3}
       propertyPath: m_LocalScale.y
-      value: 2
+      value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 6813681836913554080, guid: c5f2fac1089f842a0b1afed6e0a407b3, type: 3}
       propertyPath: m_LocalPosition.x

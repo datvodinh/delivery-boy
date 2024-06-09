@@ -9,12 +9,12 @@ public class Vertical_vehicle : MonoBehaviour
     public float speed, direction;
     public bool isStopped;
 
-    private Rigidbody2D myBody;
+    private Rigidbody myBody;
     private bool canMove = true;
     // Start is called before the first frame update
     void Awake()
     {
-        myBody = GetComponent<Rigidbody2D>();
+        myBody = GetComponent<Rigidbody>();
         //speed = 2;
     }
 
@@ -29,11 +29,11 @@ public class Vertical_vehicle : MonoBehaviour
 
 
     }
-    private void OnTriggerEnter2D(Collider2D other)
+    private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Player") || other.CompareTag("Vehicle"))
         {
-            //Debug.Log("Detect vehicle Collision");
+            Debug.Log("Detect vehicle Collision");
             //StartCoroutine(StopMoveRoutine());
             // Get the relative position of the other object compared to this object
             Vector2 hitPosition = transform.InverseTransformPoint(other.transform.position);
@@ -60,18 +60,14 @@ public class Vertical_vehicle : MonoBehaviour
                 if (hitPosition.y > 0)
                 {
 
-                    Debug.Log("Hit on the top side.");//the object need to stop
-
-
-                    StartCoroutine(StopMoveRoutine());
-
-
+                    Debug.Log("Hit on the top side.");
 
                 }
                 else
                 {
 
                     Debug.Log("Hit on the bottom side.");
+                    StartCoroutine(StopMoveRoutine());
 
                 }
             }
