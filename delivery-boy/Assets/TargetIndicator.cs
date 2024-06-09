@@ -15,7 +15,7 @@ public class TargetIndicator : MonoBehaviour
         if (Target!=null){
             var dir = Target.transform.position - transform.position;
             var angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
-
+            angle -= 115;
             transform.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
         }
     }
