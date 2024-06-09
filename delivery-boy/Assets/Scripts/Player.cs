@@ -18,7 +18,7 @@ public class Player : MonoBehaviour
     [SerializeField]
     public bool getPack=false;
     [SerializeField]
-    public GameObject pointer;
+    public GameObject pointer,buildingPointer;
 
     // Boundaries of the map
     public float minX, maxX, minY, maxY;
@@ -97,6 +97,13 @@ public class Player : MonoBehaviour
         clampedPosition.y = Mathf.Clamp(clampedPosition.y, minY, maxY);
         transform.position = clampedPosition;
 
+        if (!getPack){
+            buildingPointer.GetComponent<SpriteRenderer>().color = Color.yellow;
+        }
+        else{
+            buildingPointer.GetComponent<SpriteRenderer>().color = Color.red;
+        }
+
         
     }
 
@@ -112,7 +119,7 @@ public class Player : MonoBehaviour
         transform.localScale = theScale;
     }
 
-    private void OnTriggerEnter2D(Collider2D other)
+    private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Vehicle"))
         {
@@ -126,12 +133,16 @@ public class Player : MonoBehaviour
     private void OnCollisionEnter(Collision other)
     {
         if (other.gameObject.CompareTag("Shop") && !getPack){
+            Debug.Log("Yellow");
             getPack = true;
             pointer.GetComponent<TargetIndicator>().Target= goal;
+            buildingPointer.transform.position = goal.transform.position + new Vector3(0,2,0);
         }
         if (other.gameObject.CompareTag("Goal") && getPack){
+            Debug.Log("Red");
             getPack = false;
             pointer.GetComponent<TargetIndicator>().Target= shop;
+            buildingPointer.transform.position = shop.transform.position + new Vector3(0,2,0);
             number_of_packet -= 1;
             Debug.Log($"number_of_packet: {number_of_packet}");
         }
@@ -164,8 +175,10 @@ public class Player : MonoBehaviour
         goal = houses[secondIndex];
         if (! getPack)
         {
-        Debug.Log("now, shop");
+        // Debug.Log("now, shop");
         pointer.GetComponent<TargetIndicator>().Target= shop;
+        buildingPointer.transform.position = shop.transform.position + new Vector3(0,2,0);
+        buildingPointer.GetComponent<SpriteRenderer>().color = Color.yellow;
         }
 
 
