@@ -267,7 +267,7 @@ GameObject:
   - component: {fileID: 388161235}
   - component: {fileID: 388161234}
   m_Layer: 5
-  m_Name: DeathScreen
+  m_Name: PauseScreen
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -459,8 +459,9 @@ GameObject:
   - component: {fileID: 793604696}
   - component: {fileID: 793604695}
   - component: {fileID: 793604694}
+  - component: {fileID: 793604697}
   m_Layer: 5
-  m_Name: ContinueBtn
+  m_Name: ResumeBtn
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -530,16 +531,16 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 11500000, guid: 165fc6e09ce4f124e9afee48334553d5, type: 3}
-        m_TargetAssemblyTypeName: UnityEngine.Object, UnityEngine
-        m_MethodName: set_name
-        m_Mode: 5
+      - m_Target: {fileID: 793604697}
+        m_TargetAssemblyTypeName: MenuManager, Assembly-CSharp
+        m_MethodName: ResumeGame
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
-          m_StringArgument: main
+          m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
 --- !u!114 &793604695
@@ -580,6 +581,18 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 793604691}
   m_CullTransparentMesh: 1
+--- !u!114 &793604697
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 793604691}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 165fc6e09ce4f124e9afee48334553d5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &947175492
 GameObject:
   m_ObjectHideFlags: 0
@@ -665,8 +678,8 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 947175498}
-        m_TargetAssemblyTypeName: TaskExit, Assembly-CSharp
-        m_MethodName: exitTask
+        m_TargetAssemblyTypeName: MenuManager, Assembly-CSharp
+        m_MethodName: MainMenu
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -723,7 +736,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 947175492}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 08f876b28cd2f4cfeaf0a2625279fce2, type: 3}
+  m_Script: {fileID: 11500000, guid: 165fc6e09ce4f124e9afee48334553d5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &1526095026
@@ -843,16 +856,16 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1574003350}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: -0.7071068, w: 0.7071068}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1.5, y: 0.8, z: 1}
+  m_LocalScale: {x: 0.8, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 388161235}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: -90}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 20}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 246.8, y: 250}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1574003352
@@ -875,7 +888,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: edbf2f282f3feb940b6238d4d339ada4, type: 3}
+  m_Sprite: {fileID: -3939753913355333839, guid: 5fd9f3ec1e3e0bc4d8e308e10012a36a, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -950,7 +963,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Continue
+  m_text: Resume
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: f2e0e35a9ecf2f54eb559d5261e4966e, type: 2}
   m_sharedMaterial: {fileID: 2225205429641582523, guid: f2e0e35a9ecf2f54eb559d5261e4966e, type: 2}
