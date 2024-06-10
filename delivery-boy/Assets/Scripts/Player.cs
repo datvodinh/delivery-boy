@@ -1,5 +1,7 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
 public class Player : MonoBehaviour
@@ -14,22 +16,27 @@ public class Player : MonoBehaviour
     private GameObject player;
     public int maxLives = 3;
     [HideInInspector]
-    public int currentLives;
+    public int currentLives = 3;
     [SerializeField]
-    public bool getPack=false;
+    public bool getPack = false;
     [SerializeField]
-    public GameObject pointer,buildingPointer;
+    public GameObject pointer, buildingPointer;
+    public TextMeshProUGUI pressFtext;
 
     // Boundaries of the map
     public float minX, maxX, minY, maxY;
-    public GameObject shop,goal;
-
+    public GameObject shop, goal;
     private int number_of_packet = 1;
+    private bool textIsFlickering = false;
+
+    private bool nearShop = false;
+    private bool nearGoal = false;
     void Start()
     {
         animator = GetComponent<Animator>();
         body = GetComponent<Rigidbody>();
         body.velocity = velocity;
+        pressFtext.gameObject.SetActive(false);
         ChangeHouseTags();
     }
 
@@ -39,8 +46,12 @@ public class Player : MonoBehaviour
         // Initialize movement variables
         float moveHorizontal = 0;
         float moveVertical = 0;
-        Vector3 offset = new Vector3(0,1,0);
-        pointer.transform.position = transform.position + offset;
+        Vector3 offset = new Vector3(0, 1, 0);
+        if (pointer != null)
+        {
+            pointer.transform.position = transform.position + offset;
+        }
+
         bool isMoving = false;
 
         // Check for "A S W D" and arrow key inputs
@@ -48,7 +59,7 @@ public class Player : MonoBehaviour
         {
             moveHorizontal = -speed;
             isMoving = true;
-            
+
             if (facingRight)
             {
                 Flip();
@@ -97,14 +108,25 @@ public class Player : MonoBehaviour
         clampedPosition.y = Mathf.Clamp(clampedPosition.y, minY, maxY);
         transform.position = clampedPosition;
 
-        if (!getPack){
+        if (!getPack)
+        {
             buildingPointer.GetComponent<SpriteRenderer>().color = Color.yellow;
         }
-        else{
+        else
+        {
             buildingPointer.GetComponent<SpriteRenderer>().color = Color.red;
         }
 
-        
+        if (nearShop && Input.GetKey(KeyCode.Space) && !getPack)
+        {
+            HandleShopInteraction();
+        }
+        else if (nearGoal && Input.GetKey(KeyCode.Space) && getPack)
+        {
+            HandleGoalInteraction();
+        }
+
+
     }
 
     // Function to flip the character
@@ -121,33 +143,73 @@ public class Player : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("Vehicle"))
+        if (other.gameObject.CompareTag("Shop"))
+        {
+            Debug.Log("Player entered shop");
+            nearShop = true;
+            if (!getPack)
+            {
+                pressFtext.gameObject.SetActive(true);
+            }
+        }
+        else if (other.gameObject.CompareTag("Goal"))
+        {
+            Debug.Log("Player entered goal");
+            nearGoal = true;
+            if (getPack)
+            {
+                pressFtext.gameObject.SetActive(true);
+            }
+        }
+        else if (other.CompareTag("Vehicle"))
         {
             Debug.Log("Player hit by vehicle");
 
-            transform.position = new Vector3(0.0f, 0.0f, -0.0f);
+            transform.position = new Vector3(-7.0f, -10.0f, -0.0f);
             animator.ResetTrigger("run");
+            currentLives -= 1;
+            GameObject[] hearts = GameObject.FindGameObjectsWithTag("Heart");
+            Destroy(hearts[0]);
+            if (currentLives == 0)
+            {
+                Debug.Log("Game Over");
+            }
         }
-        
+
     }
-    private void OnCollisionEnter(Collision other)
+    private void OnTriggerExit(Collider other)
     {
-        if (other.gameObject.CompareTag("Shop") && !getPack){
-            Debug.Log("Yellow");
-            getPack = true;
-            pointer.GetComponent<TargetIndicator>().Target= goal;
-            buildingPointer.transform.position = goal.transform.position + new Vector3(0,2,0);
+        if (other.gameObject.CompareTag("Shop"))
+        {
+            nearShop = false;
+            pressFtext.gameObject.SetActive(false);
         }
-        if (other.gameObject.CompareTag("Goal") && getPack){
-            Debug.Log("Red");
-            getPack = false;
-            pointer.GetComponent<TargetIndicator>().Target= shop;
-            buildingPointer.transform.position = shop.transform.position + new Vector3(0,2,0);
-            number_of_packet -= 1;
-            Debug.Log($"number_of_packet: {number_of_packet}");
+        else if (other.gameObject.CompareTag("Goal"))
+        {
+            nearGoal = false;
+            pressFtext.gameObject.SetActive(false);
         }
     }
 
+    private void HandleShopInteraction()
+    {
+        Debug.Log("Yellow");
+        pressFtext.gameObject.SetActive(false);
+        getPack = true;
+        pointer.GetComponent<TargetIndicator>().Target = goal;
+        buildingPointer.transform.position = goal.transform.position + new Vector3(0, 2, 0);
+    }
+
+    private void HandleGoalInteraction()
+    {
+        Debug.Log("Green");
+        getPack = false;
+        pressFtext.gameObject.SetActive(false);
+        pointer.GetComponent<TargetIndicator>().Target = shop;
+        buildingPointer.transform.position = shop.transform.position + new Vector3(0, 2, 0);
+        number_of_packet -= 1;
+        Debug.Log($"number_of_packet: {number_of_packet}");
+    }
     public void ChangeHouseTags()
     {
         // Find all GameObjects with the tag "House"
@@ -161,11 +223,11 @@ public class Player : MonoBehaviour
         }
 
         // Get two unique random indices
-        int firstIndex = Random.Range(0, houses.Length);
+        int firstIndex = UnityEngine.Random.Range(0, houses.Length);
         int secondIndex = firstIndex;
         while (secondIndex == firstIndex)
         {
-            secondIndex = Random.Range(0, houses.Length);
+            secondIndex = UnityEngine.Random.Range(0, houses.Length);
         }
 
         // Change the tags of the selected houses
@@ -173,14 +235,13 @@ public class Player : MonoBehaviour
         houses[secondIndex].tag = "Goal";
         shop = houses[firstIndex];
         goal = houses[secondIndex];
-        if (! getPack)
+        if (!getPack)
         {
-        // Debug.Log("now, shop");
-        pointer.GetComponent<TargetIndicator>().Target= shop;
-        buildingPointer.transform.position = shop.transform.position + new Vector3(0,2,0);
-        buildingPointer.GetComponent<SpriteRenderer>().color = Color.yellow;
+            // Debug.Log("now, shop");
+            pointer.GetComponent<TargetIndicator>().Target = shop;
+            buildingPointer.transform.position = shop.transform.position + new Vector3(0, 2, 0);
+            buildingPointer.GetComponent<SpriteRenderer>().color = Color.yellow;
         }
-
 
         Debug.Log($"House {houses[firstIndex].name} is now a Shop");
         Debug.Log($"House {houses[secondIndex].name} is now a Goal");
@@ -201,4 +262,5 @@ public class Player : MonoBehaviour
         GameObject pointerInstance = Instantiate(pointerPrefab, Vector3.zero, Quaternion.identity);
         pointerInstance.tag = "ShopPointer";
     }
+
 }

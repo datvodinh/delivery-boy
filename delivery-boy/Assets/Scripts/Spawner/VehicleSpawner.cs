@@ -5,7 +5,7 @@ using UnityEngine;
 public class VehicleSpawner : MonoBehaviour
 {
     [HideInInspector]
-    public int carsPerSpawn = 3, carSpeed = 2;
+    public int carsPerSpawn = 3, carSpeed = 3;
     [HideInInspector]
     public float minTime = 10, maxTime = 20;
 
