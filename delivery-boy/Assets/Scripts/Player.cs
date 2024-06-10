@@ -2,7 +2,9 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
+using UnityEditor.SearchService;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class Player : MonoBehaviour
 {
@@ -15,8 +17,6 @@ public class Player : MonoBehaviour
     private Rigidbody body;
     private GameObject player;
     public int maxLives = 3;
-    [HideInInspector]
-    public int currentLives = 3;
     [SerializeField]
     public bool getPack = false;
     [SerializeField]
@@ -126,7 +126,6 @@ public class Player : MonoBehaviour
             HandleGoalInteraction();
         }
 
-
     }
 
     // Function to flip the character
@@ -167,13 +166,9 @@ public class Player : MonoBehaviour
 
             transform.position = new Vector3(-7.0f, -10.0f, -0.0f);
             animator.ResetTrigger("run");
-            currentLives -= 1;
             GameObject[] hearts = GameObject.FindGameObjectsWithTag("Heart");
-            Destroy(hearts[0]);
-            if (currentLives == 0)
-            {
-                Debug.Log("Game Over");
-            }
+            Destroy(hearts[hearts.Length - 1]);
+            CheckHeart(hearts);
         }
 
     }
@@ -208,7 +203,7 @@ public class Player : MonoBehaviour
         pointer.GetComponent<TargetIndicator>().Target = shop;
         buildingPointer.transform.position = shop.transform.position + new Vector3(0, 2, 0);
         number_of_packet -= 1;
-        Debug.Log($"number_of_packet: {number_of_packet}");
+        CheckPacket();
     }
     public void ChangeHouseTags()
     {
@@ -261,6 +256,26 @@ public class Player : MonoBehaviour
         GameObject pointerPrefab = Resources.Load<GameObject>("Pointer");
         GameObject pointerInstance = Instantiate(pointerPrefab, Vector3.zero, Quaternion.identity);
         pointerInstance.tag = "ShopPointer";
+    }
+
+    private void CheckHeart(GameObject[] hearts)
+    {
+        if (hearts.Length - 1 == 0)
+        {
+            SceneManager.UnloadSceneAsync("main");
+            SceneManager.LoadSceneAsync("death_screen");
+        }
+
+
+    }
+
+    private void CheckPacket()
+    {
+        if (number_of_packet == 0)
+        {
+            SceneManager.UnloadSceneAsync("main");
+            SceneManager.LoadSceneAsync("finish_screen");
+        }
     }
 
 }
