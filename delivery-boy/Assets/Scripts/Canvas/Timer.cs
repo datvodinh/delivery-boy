@@ -1,13 +1,14 @@
 using UnityEngine;
 using TMPro; // If using TextMeshPro
-using UnityEngine.UI; // If using standard UI Text
+using UnityEngine.UI;
+using UnityEngine.SceneManagement; // If using standard UI Text
 
 public class CountdownTimer : MonoBehaviour
 {
     public TextMeshProUGUI timerText; // Use TextMeshProUGUI for TextMeshPro
     // public Text timerText; // Use Text for standard UI Text
 
-    public float startTime = 60f; // Set the starting time in seconds
+    public float startTime = 6f; // Set the starting time in seconds
     private float currentTime;
 
     void Start()
@@ -21,6 +22,8 @@ public class CountdownTimer : MonoBehaviour
         if (currentTime < 0)
         {
             currentTime = 0;
+            SceneManager.UnloadSceneAsync("main");
+            SceneManager.LoadSceneAsync("death_screen");
             // Optionally, add code to handle what happens when the timer reaches zero
         }
 

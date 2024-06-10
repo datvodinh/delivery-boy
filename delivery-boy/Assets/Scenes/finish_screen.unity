@@ -1154,8 +1154,8 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 1269159093}
-        m_TargetAssemblyTypeName: NextLevel, Assembly-CSharp
-        m_MethodName: Check
+        m_TargetAssemblyTypeName: MenuManager, Assembly-CSharp
+        m_MethodName: StartGame
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -1212,7 +1212,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1269159088}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b4872daaf0b17434daae939b1d59250c, type: 3}
+  m_Script: {fileID: 11500000, guid: 165fc6e09ce4f124e9afee48334553d5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &1641484760
@@ -1300,8 +1300,8 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 1641484765}
-        m_TargetAssemblyTypeName: TaskExit, Assembly-CSharp
-        m_MethodName: exitTask
+        m_TargetAssemblyTypeName: MenuManager, Assembly-CSharp
+        m_MethodName: MainMenu
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -1358,7 +1358,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1641484760}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 08f876b28cd2f4cfeaf0a2625279fce2, type: 3}
+  m_Script: {fileID: 11500000, guid: 165fc6e09ce4f124e9afee48334553d5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &1996115886
