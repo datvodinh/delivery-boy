@@ -41,6 +41,11 @@ public class MenuManager : MonoBehaviour
         Time.timeScale = 0f; // Pause the game
     }
 
+    public void LevelScreen()
+    {
+        SwitchScene("level_screen");
+    }
+
     public void QuitGame()
     {
         Application.Quit();
@@ -48,6 +53,6 @@ public class MenuManager : MonoBehaviour
 
     public void SwitchScene(string sceneName)
     {
-        SceneManager.LoadScene(sceneName);
+        SceneManager.LoadSceneAsync(sceneName);
     }
 }
