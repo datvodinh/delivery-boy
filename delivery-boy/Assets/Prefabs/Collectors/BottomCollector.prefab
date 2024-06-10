@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1539717474693345051}
   - component: {fileID: 5034418765879812235}
+  - component: {fileID: 7860490713189883997}
   m_Layer: 0
   m_Name: BottomCollector
   m_TagString: Untagged
@@ -44,3 +45,24 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2c187cdb01c7740479d27d993f85fb34, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!65 &7860490713189883997
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1170654991887969285}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 101.9197, y: 1, z: 1}
+  m_Center: {x: 23.081348, y: 0, z: 0}
